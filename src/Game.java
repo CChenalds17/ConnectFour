@@ -9,7 +9,6 @@ public class Game {
 
     // Creates an empty board
     private static char[][] board = new char[6][7];
-    private static int[] columnNums = {1, 2, 3, 4, 5, 6, 7};
     // Creates 2 players
     public Player player1;
     public Player player2;
@@ -48,8 +47,8 @@ public class Game {
             }
             System.out.println();
         }
-        for (int i = 0; i < columnNums.length; i++) {
-            System.out.printf("%4d", columnNums[i]);
+        for (int i = 0; i < board[0].length; i++) {
+            System.out.printf("%4d", i + 1);
         }
         System.out.println();
     }
@@ -57,33 +56,33 @@ public class Game {
     private void playTurnPlayer(Player player) {
         boolean isValidMove = false;
         int moveColumn = -1;
-        System.out.println("Type in a column number (1-7) to make a move: ");
-        
+        System.out.printf("Type in a column number (1-%d) to make a move: ", board[0].length);
+
         // Gets move
         while (!isValidMove) {
             try {
                 Scanner sc = new Scanner(System.console().readLine());
-                
+
                 moveColumn = sc.nextInt();
-                
-                if (moveColumn < 1 || moveColumn > 7) {
-                    System.out.println("ERROR: Not a valid column. Type in a column number (1-7) to make a move: ");
+
+                if (moveColumn < 1 || moveColumn > board[0].length) {
+                    System.out.printf("ERROR: Not a valid column. Type in a column number (1-%d) to make a move: ", board[0].length);
                     isValidMove = false;
                 } else if (board[0][moveColumn - 1] != '-') {
-                    System.out.println("ERROR: Column is full. Type in a column number (1-7) to make a move: ");
+                    System.out.printf("ERROR: Column is full.Type in a column number (1-%d) to make a move: ", board[0].length);
                     isValidMove = false;
                 } else {
                     sc.close();
                     isValidMove = true;
                 }
             } catch (InputMismatchException ime) {
-                System.out.println("ERROR: Not a column number. Type in a column number (1-7) to make a move: ");
+                System.out.printf("ERROR: Not a column number. Type in a column number (1-%d) to make a move: ", board[0].length);
                 isValidMove = false;
             } catch (NoSuchElementException nsee) {
-                System.out.println("ERROR: Not a vaid move. Type in a row number (1-7) to make a move: ");
+                System.out.printf("ERROR: Not a vaid move. Type in a column number (1-%d) to make a move: ", board[0].length);
                 isValidMove = false;
             }
-            
+
         }
         // Puts chip on lowest available row
         for (int i = board.length - 1; i >= 0; i--) {
@@ -98,16 +97,16 @@ public class Game {
     }
 
     private void playTurnComputer(Player player) {
-        
+
         boolean isValidMove = false;
         int moveColumn = -1;
-        System.out.println("Type in a column number (1-7) to make a move: ");
-        
+        System.out.printf("Type in a column number (1-%d) to make a move: ", board[0].length);
+
         while (!isValidMove) {
 
-            // Gets random int (1-7) as computer move
+            // Gets random int (1-column count) as computer move
             Random rand = new Random();
-            moveColumn = rand.nextInt(7);
+            moveColumn = rand.nextInt(board[0].length);
 
             // Checks that the column isn't empty
             if (board[0][moveColumn] != '-') {
@@ -116,7 +115,7 @@ public class Game {
             } else {
                 isValidMove = true;
             }
-        }    
+        }
 
         int printColumn = moveColumn + 1;
         System.out.println(printColumn);
@@ -137,7 +136,7 @@ public class Game {
         if (checkRowP1() || checkColumnP1() || checkRightDiagonalP1() || checkLeftDiagonalP1()) {
             return true;
         }
-        
+
         return false;
 
     }
@@ -147,7 +146,7 @@ public class Game {
         if (checkRowP2() || checkColumnP2() || checkRightDiagonalP2() || checkLeftDiagonalP2()) {
             return true;
         }
-        
+
         return false;
 
     }
@@ -172,7 +171,7 @@ public class Game {
     private boolean checkRowP1() {
 
         int count = 0;
-        // For each row: 
+        // For each row:
         for (int i = board.length - 1; i >= 0; i--) {
             // Reset count when switching rows
             count = 0;
@@ -195,7 +194,7 @@ public class Game {
     private boolean checkRowP2() {
 
         int count = 0;
-        // For each row: 
+        // For each row:
         for (int i = board.length - 1; i >= 0; i--) {
             // Reset count when switching rows
             count = 0;
@@ -218,7 +217,7 @@ public class Game {
     private boolean checkColumnP1() {
 
         int count = 0;
-        // For each column: 
+        // For each column:
         for (int i = board[0].length - 1; i >= 0; i--) {
             // Reset count when switching columns
             count = 0;
@@ -241,7 +240,7 @@ public class Game {
     private boolean checkColumnP2() {
 
         int count = 0;
-        // For each column: 
+        // For each column:
         for (int i = board[0].length - 1; i >= 0; i--) {
             // Reset count when switching columns
             count = 0;
@@ -266,9 +265,9 @@ public class Game {
         int count = 0;
 
         // For each column:
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < board[0].length - 3; i++) {
             // For each element within the column:
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < board.length - 3; j++) {
                 // Checking the diagonal
                 count = 0;
                 for (int x = 0, y = 0; x < board.length && y < board.length; x++, y++) {
@@ -288,7 +287,7 @@ public class Game {
                 }
             }
         }
-        
+
         return false;
     }
 
@@ -297,9 +296,9 @@ public class Game {
         int count = 0;
 
         // For each column:
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < board[0].length - 3; i++) {
             // For each element within the column:
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < board.length - 3; j++) {
                 count = 0;
                 // Checking the diagonal
                 for (int x = 0, y = 0; x < board.length && y < board.length; x++, y++) {
@@ -319,7 +318,7 @@ public class Game {
                 }
             }
         }
-        
+
         return false;
     }
 
@@ -328,13 +327,15 @@ public class Game {
         int count = 0;
 
         // For each column:
-        for (int i = 3; i < 7; i++) {
+        for (int i = 3; i < board[0].length; i++) {
             // For each element within the column:
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < board.length - 3; j++) {
                 count = 0;
                 // Checking the diagonal
+                System.out.println();
                 for (int x = 0, y = 0; x < board.length && y < board.length; x++, y++) {
                     try {
+                        System.out.printf("Checking %d,%d",j+y,i-x);
                         if (board[j+y][i-x] == player1.playerChar) {
                             count += 1;
                         } else {
@@ -359,9 +360,9 @@ public class Game {
         int count = 0;
 
         // For each column:
-        for (int i = 3; i < 7; i++) {
+        for (int i = 3; i < board[0].length; i++) {
             // For each element within the column:
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < board.length - 3; j++) {
                 count = 0;
                 // Checking the diagonal
                 for (int x = 0, y = 0; x < board.length && y < board.length; x++, y++) {
