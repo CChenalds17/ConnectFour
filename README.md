@@ -1,5 +1,5 @@
 # ConnectFour
-My first actual project: Simple command line connect four with 1 player and 2 player modes
+My first actual project: Simple command line connect four with 1-player and 2-player modes
 
 Main method: ConnectFour.java
 
