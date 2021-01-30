@@ -326,7 +326,6 @@ public class Game {
             for (int j = 0; j < board.length - 3; j++) {
                 count = 0;
                 // Checking the diagonal
-                System.out.println();
                 for (int x = 0, y = 0; x < board.length && y < board.length; x++, y++) {
                     try {
                         // System.out.printf("Checking %d,%d",j+y,i-x);
