@@ -69,7 +69,7 @@ public class Game {
                     System.out.printf("ERROR: Not a valid column. Type in a column number (1-%d) to make a move: ", board[0].length);
                     isValidMove = false;
                 } else if (board[0][moveColumn - 1] != '-') {
-                    System.out.printf("ERROR: Column is full.Type in a column number (1-%d) to make a move: ", board[0].length);
+                    System.out.printf("ERROR: Column is full. Type in a column number (1-%d) to make a move: ", board[0].length);
                     isValidMove = false;
                 } else {
                     sc.close();
@@ -183,7 +183,6 @@ public class Game {
                     count = 0;
                 }
                 if (count >= 4) {
-                    // System.out.println("p1 row " + i + " " + j);
                     return true;
                 }
             }
@@ -206,7 +205,6 @@ public class Game {
                     count = 0;
                 }
                 if (count >= 4) {
-                    // System.out.println("p2 row " + i + " " + j);
                     return true;
                 }
             }
@@ -229,7 +227,6 @@ public class Game {
                     count = 0;
                 }
                 if (count >= 4) {
-                    // System.out.println("p1 col " + i + " " + j);
                     return true;
                 }
             }
@@ -252,7 +249,6 @@ public class Game {
                     count = 0;
                 }
                 if (count >= 4) {
-                    // System.out.println("p2 col " + i + " " + j);
                     return true;
                 }
             }
@@ -278,7 +274,6 @@ public class Game {
                             count = 0;
                         }
                         if (count >= 4) {
-                            // System.out.println("p1 diR " + j + "+" + y + " " + i + "+" + x);
                             return true;
                         }
                     } catch (IndexOutOfBoundsException ioobe) {
@@ -309,7 +304,6 @@ public class Game {
                             count = 0;
                         }
                         if (count >= 4) {
-                            // System.out.println("p2 diR " + j + "+" + y + " " + i + "+" + x);
                             return true;
                         }
                     } catch (IndexOutOfBoundsException ioobe) {
@@ -335,14 +329,13 @@ public class Game {
                 System.out.println();
                 for (int x = 0, y = 0; x < board.length && y < board.length; x++, y++) {
                     try {
-                        System.out.printf("Checking %d,%d",j+y,i-x);
+                        // System.out.printf("Checking %d,%d",j+y,i-x);
                         if (board[j+y][i-x] == player1.playerChar) {
                             count += 1;
                         } else {
                             count = 0;
                         }
                         if (count >= 4) {
-                            // System.out.println("p1 diL " + j + "+" + y + " " + i + "-" + x);
                             return true;
                         }
                     } catch (IndexOutOfBoundsException ioobe) {
@@ -373,7 +366,6 @@ public class Game {
                             count = 0;
                         }
                         if (count >= 4) {
-                            // System.out.println("p2 diL " + j + "+" + y + " " + i + "-" + "x");
                             return true;
                         }
                     } catch (IndexOutOfBoundsException ioobe) {
