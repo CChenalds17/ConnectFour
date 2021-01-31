@@ -35,10 +35,6 @@ public class Game {
         }
     }
 
-    private void resetTurnCount() {
-        turnCount = 1;
-    }
-
     private void printBoard() {
         // Prints out board
         for (int i = 0; i < board.length; i++) {
@@ -132,40 +128,19 @@ public class Game {
     }
 
     private boolean checkWinP1() {
-
-        if (checkRowP1() || checkColumnP1() || checkRightDiagonalP1() || checkLeftDiagonalP1()) {
-            return true;
-        }
-
-        return false;
-
+        return checkRowP1() || checkColumnP1() || checkRightDiagonalP1() || checkLeftDiagonalP1();
     }
 
     private boolean checkWinP2() {
-
-        if (checkRowP2() || checkColumnP2() || checkRightDiagonalP2() || checkLeftDiagonalP2()) {
-            return true;
-        }
-
-        return false;
-
+        return checkRowP2() || checkColumnP2() || checkRightDiagonalP2() || checkLeftDiagonalP2();
     }
 
     private boolean checkTie() {
-
-        if (turnCount > 42) {
-            return true;
-        }
-
-        return false;
+        return turnCount > 42;
     }
 
     private boolean turnCountIsOdd() {
-        if (turnCount % 2 == 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return turnCount % 2 == 1;
     }
 
     private boolean checkRowP1() {
@@ -380,7 +355,7 @@ public class Game {
     public void playGame2P() {
 
         resetBoard();
-        resetTurnCount();
+        turnCount = 1;
 
         System.out.println("\nGame started between Player 1 and Player 2\n");
         printBoard();
@@ -418,7 +393,7 @@ public class Game {
     public void playGame1P() {
 
         resetBoard();
-        resetTurnCount();
+        turnCount = 1;
 
         System.out.println("\nGame started between Player 1 and Computer\n");
         printBoard();
