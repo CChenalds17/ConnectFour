@@ -126,12 +126,8 @@ public class Game {
         turnCount ++;
     }
 
-    private boolean checkWinP1() {
-        return checkRowP1() || checkColumnP1() || checkRightDiagonalP1() || checkLeftDiagonalP1();
-    }
-
-    private boolean checkWinP2() {
-        return checkRowP2() || checkColumnP2() || checkRightDiagonalP2() || checkLeftDiagonalP2();
+    private boolean checkWin(Player player) {
+        return checkRow(player) || checkColumn(player) || checkRightDiagonal(player) || checkLeftDiagonal(player);
     }
 
     private boolean checkTie() {
@@ -142,7 +138,7 @@ public class Game {
         return turnCount % 2 == 1;
     }
 
-    private boolean checkRowP1() {
+    private boolean checkRow(Player player) {
 
         int count = 0;
         // For each row:
@@ -151,7 +147,7 @@ public class Game {
             count = 0;
             //For each element within the row:
             for (int j = 0; j < board[0].length; j++) {
-                if (board[i][j] == player1.playerChar) {
+                if (board[i][j] == player.playerChar) {
                     count += 1;
                 } else {
                     count = 0;
@@ -164,29 +160,7 @@ public class Game {
         return false;
     }
 
-    private boolean checkRowP2() {
-
-        int count = 0;
-        // For each row:
-        for (int i = board.length - 1; i >= 0; i--) {
-            // Reset count when switching rows
-            count = 0;
-            //For each element within the row:
-            for (int j = 0; j < board[0].length; j++) {
-                if (board[i][j] == player2.playerChar) {
-                    count += 1;
-                } else {
-                    count = 0;
-                }
-                if (count >= 4) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean checkColumnP1() {
+    private boolean checkColumn(Player player) {
 
         int count = 0;
         // For each column:
@@ -195,7 +169,7 @@ public class Game {
             count = 0;
             // For each element within the column:
             for (int j = 0; j < board.length; j++) {
-                if (board[j][i] == player1.playerChar) {
+                if (board[j][i] == player.playerChar) {
                     count += 1;
                 } else {
                     count = 0;
@@ -208,29 +182,7 @@ public class Game {
         return false;
     }
 
-    private boolean checkColumnP2() {
-
-        int count = 0;
-        // For each column:
-        for (int i = board[0].length - 1; i >= 0; i--) {
-            // Reset count when switching columns
-            count = 0;
-            // For each element within the column:
-            for (int j = 0; j < board.length; j++) {
-                if (board[j][i] == player2.playerChar) {
-                    count += 1;
-                } else {
-                    count = 0;
-                }
-                if (count >= 4) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private boolean checkRightDiagonalP1() {
+    private boolean checkRightDiagonal(Player player) {
 
         int count = 0;
 
@@ -241,7 +193,7 @@ public class Game {
                 // Checking the diagonal
                 count = 0;
                 for (int k = 0; k < 4; k++) {
-                    if (board[j+k][i+k] == player1.playerChar) {
+                    if (board[j+k][i+k] == player.playerChar) {
                         count += 1;
                     } else {
                         count = 0;
@@ -256,33 +208,7 @@ public class Game {
         return false;
     }
 
-    private boolean checkRightDiagonalP2() {
-
-        int count = 0;
-
-        // For each column:
-        for (int i = 0; i < board[0].length - 3; i++) {
-            // For each element within the column:
-            for (int j = 0; j < board.length - 3; j++) {
-                // Checking the diagonal
-                count = 0;
-                for (int k = 0; k < 4; k++) {
-                    if (board[j+k][i+k] == player2.playerChar) {
-                        count += 1;
-                    } else {
-                        count = 0;
-                    }
-                    if (count >= 4) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private boolean checkLeftDiagonalP1() {
+    private boolean checkLeftDiagonal(Player player) {
 
         int count = 0;
 
@@ -294,33 +220,7 @@ public class Game {
                 count = 0;
                 for (int k = 0; k < 4; k++) {
                     // System.out.printf("Checking %d,%d",j+k,i-k);
-                    if (board[j+k][i-k] == player1.playerChar) {
-                        count += 1;
-                    } else {
-                        count = 0;
-                    }
-                    if (count >= 4) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private boolean checkLeftDiagonalP2() {
-
-        int count = 0;
-
-        // For each column:
-        for (int i = 3; i < board[0].length; i++) {
-            // For each element within the column:
-            for (int j = 0; j < board.length - 3; j++) {
-                // Checking the diagonal
-                count = 0;
-                for (int k = 0; k < 4; k++) {
-                    if (board[j+k][i-k] == player2.playerChar) {
+                    if (board[j+k][i-k] == player.playerChar) {
                         count += 1;
                     } else {
                         count = 0;
@@ -342,10 +242,10 @@ public class Game {
 
         System.out.println("\nGame started between Player 1 and Player 2\n");
         printBoard();
-        while(!checkWinP1() && !checkWinP2() && !checkTie()) {
+        while(!checkWin(player1) && !checkWin(player2) && !checkTie()) {
             if (turnCountIsOdd()) {
                 playTurnPlayer(player1);
-                if (checkWinP1()) {
+                if (checkWin(player1)) {
                     break;
                 } else if (checkTie()) {
                     break;
@@ -354,7 +254,7 @@ public class Game {
                 printBoard();
             } else {
                 playTurnPlayer(player2);
-                if (checkWinP2()) {
+                if (checkWin(player2)) {
                     break;
                 } else if (checkTie()) {
                     break;
@@ -364,9 +264,9 @@ public class Game {
             }
         }
         printBoard();
-        if (checkWinP1()) {
+        if (checkWin(player1)) {
             System.out.println("\nGame over. Player 1 wins!\n");
-        } else if (checkWinP2()) {
+        } else if (checkWin(player2)) {
             System.out.println("\nGame over. Player 2 wins!\n");
         } else {
             System.out.println("\nGame over. It's a tie.\n");
@@ -380,10 +280,10 @@ public class Game {
 
         System.out.println("\nGame started between Player 1 and Computer\n");
         printBoard();
-        while(!checkWinP1() && !checkWinP2() && !checkTie()) {
+        while(!checkWin(player1) && !checkWin(player2) && !checkTie()) {
             if (turnCountIsOdd()) {
                 playTurnPlayer(player1);
-                if (checkWinP1()) {
+                if (checkWin(player1)) {
                     break;
                 } else if (checkTie()) {
                     break;
@@ -392,7 +292,7 @@ public class Game {
                 printBoard();
             } else {
                 playTurnComputer(player2);
-                if (checkWinP2()) {
+                if (checkWin(player2)) {
                     break;
                 } else if (checkTie()) {
                     break;
@@ -402,9 +302,9 @@ public class Game {
             }
         }
         printBoard();
-        if (checkWinP1()) {
+        if (checkWin(player1)) {
             System.out.println("\nGame over. Player 1 wins!\n");
-        } else if (checkWinP2()) {
+        } else if (checkWin(player2)) {
             System.out.println("\nGame over. You lost to the computer.\n");
         } else {
             System.out.println("\nGame over. It's a tie.\n");
