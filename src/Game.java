@@ -2,7 +2,6 @@
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.lang.IndexOutOfBoundsException;
 import java.util.Random;
 
 public class Game {
@@ -241,18 +240,14 @@ public class Game {
             for (int j = 0; j < board.length - 3; j++) {
                 // Checking the diagonal
                 count = 0;
-                for (int x = 0, y = 0; x < board.length && y < board.length; x++, y++) {
-                    try {
-                        if (board[j+y][i+x] == player1.playerChar) {
-                            count += 1;
-                        } else {
-                            count = 0;
-                        }
-                        if (count >= 4) {
-                            return true;
-                        }
-                    } catch (IndexOutOfBoundsException ioobe) {
-                        // Just loop through again
+                for (int k = 0; k < 4; k++) {
+                    if (board[j+k][i+k] == player1.playerChar) {
+                        count += 1;
+                    } else {
+                        count = 0;
+                    }
+                    if (count >= 4) {
+                        return true;
                     }
                 }
             }
@@ -269,20 +264,16 @@ public class Game {
         for (int i = 0; i < board[0].length - 3; i++) {
             // For each element within the column:
             for (int j = 0; j < board.length - 3; j++) {
-                count = 0;
                 // Checking the diagonal
-                for (int x = 0, y = 0; x < board.length && y < board.length; x++, y++) {
-                    try {
-                        if (board[j+y][i+x] == player2.playerChar) {
-                            count += 1;
-                        } else {
-                            count = 0;
-                        }
-                        if (count >= 4) {
-                            return true;
-                        }
-                    } catch (IndexOutOfBoundsException ioobe) {
-                        // Just loop through again
+                count = 0;
+                for (int k = 0; k < 4; k++) {
+                    if (board[j+k][i+k] == player2.playerChar) {
+                        count += 1;
+                    } else {
+                        count = 0;
+                    }
+                    if (count >= 4) {
+                        return true;
                     }
                 }
             }
@@ -299,21 +290,17 @@ public class Game {
         for (int i = 3; i < board[0].length; i++) {
             // For each element within the column:
             for (int j = 0; j < board.length - 3; j++) {
-                count = 0;
                 // Checking the diagonal
-                for (int x = 0, y = 0; x < board.length && y < board.length; x++, y++) {
-                    try {
-                        // System.out.printf("Checking %d,%d",j+y,i-x);
-                        if (board[j+y][i-x] == player1.playerChar) {
-                            count += 1;
-                        } else {
-                            count = 0;
-                        }
-                        if (count >= 4) {
-                            return true;
-                        }
-                    } catch (IndexOutOfBoundsException ioobe) {
-                        // Just loop through again
+                count = 0;
+                for (int k = 0; k < 4; k++) {
+                    // System.out.printf("Checking %d,%d",j+k,i-k);
+                    if (board[j+k][i-k] == player1.playerChar) {
+                        count += 1;
+                    } else {
+                        count = 0;
+                    }
+                    if (count >= 4) {
+                        return true;
                     }
                 }
             }
@@ -330,20 +317,16 @@ public class Game {
         for (int i = 3; i < board[0].length; i++) {
             // For each element within the column:
             for (int j = 0; j < board.length - 3; j++) {
-                count = 0;
                 // Checking the diagonal
-                for (int x = 0, y = 0; x < board.length && y < board.length; x++, y++) {
-                    try {
-                        if (board[j+y][i-x] == player2.playerChar) {
-                            count += 1;
-                        } else {
-                            count = 0;
-                        }
-                        if (count >= 4) {
-                            return true;
-                        }
-                    } catch (IndexOutOfBoundsException ioobe) {
-                        // Just loop through again
+                count = 0;
+                for (int k = 0; k < 4; k++) {
+                    if (board[j+k][i-k] == player2.playerChar) {
+                        count += 1;
+                    } else {
+                        count = 0;
+                    }
+                    if (count >= 4) {
+                        return true;
                     }
                 }
             }
